@@ -1,567 +1,529 @@
 export type Language = 'th' | 'en'
 
-export interface Translations {
-  header: {
-    features: string
-    pricing: string
-    faq: string
-    contact: string
-    requestDemo: string
-  }
+const th = {
+  nav: {
+    day: 'ฟีเจอร์',
+    df: 'ค่า DF',
+    staff: 'พนักงาน',
+    pricing: 'แพ็กเกจ',
+    faq: 'คำถาม',
+    cta: 'นัดดูเดโม',
+    menu: 'เมนู',
+    close: 'ปิดเมนู',
+  },
   hero: {
-    title: string
-    subtitle: string
-    ctaPrimary: string
-    ctaSecondary: string
-  }
-  trust: {
-    title: string
-    subtitle: string
-    items: Array<{
-      title: string
-      description: string
-    }>
-  }
-  modules: {
-    title: string
-    subtitle: string
-    items: Array<{
-      title: string
-      description: string
-    }>
-  }
-  workflow: {
-    title: string
-    subtitle: string
-    steps: Array<{
-      title: string
-      description: string
-    }>
-  }
-  testimonials: {
-    title: string
-    subtitle: string
-    items: Array<{
-      name: string
-      role: string
-      clinic: string
-      content: string
-    }>
-  }
+    eyebrow: 'ระบบบริหารคลินิกทันตกรรม',
+    titleA: 'ตั้งแต่คนไข้คนแรก',
+    titleB: 'จนปิดยอดสิ้นวัน',
+    lede: 'ตารางนัดแยกตามทันตแพทย์ ค่า DF ที่คิดให้ตามกฎของคลินิก สต็อกที่รู้ว่าของอยู่ห้องไหน และพนักงานลงเวลาผ่าน LINE ทั้งหมดอยู่ในระบบเดียว',
+    ctaPrimary: 'นัดดูเดโม 30 นาที',
+    ctaSecondary: 'ดูการทำงานทั้งวัน',
+    facts: ['ใช้บนเบราว์เซอร์ ไม่ต้องลงโปรแกรม', 'พนักงานใช้ LINE ที่มีอยู่แล้ว', 'รองรับทันตแพทย์หลายคน'],
+  },
+  board: {
+    date: 'พุธ 25 พ.ย.',
+    sample: 'ตัวอย่าง',
+    time: 'เวลา',
+    doctors: ['หมอปราง', 'หมอต้น', 'หมอมิว'],
+    status: { arrived: 'มาแล้ว', confirmed: 'ยืนยันแล้ว', pending: 'รอยืนยัน' },
+    appts: [
+      { doc: 0, start: '09:00', end: '10:00', who: 'คุณศิริพร', what: 'ขูดหินปูน', status: 'arrived' },
+      { doc: 0, start: '10:30', end: '11:30', who: 'คุณธนา', what: 'อุดฟัน #36', status: 'confirmed' },
+      { doc: 0, start: '12:00', end: '12:30', who: 'คุณมะลิ', what: 'ตรวจฟัน', status: 'pending' },
+      { doc: 1, start: '09:30', end: '11:00', who: 'คุณวิไล', what: 'รักษารากฟัน #46', status: 'arrived' },
+      { doc: 1, start: '11:30', end: '12:30', who: 'คุณเอก', what: 'ถอนฟันคุด #38', status: 'confirmed' },
+      { doc: 2, start: '09:00', end: '09:30', who: 'น้องภูมิ', what: 'เคลือบฟลูออไรด์', status: 'arrived' },
+      { doc: 2, start: '10:00', end: '12:00', who: 'คุณนภา', what: 'จัดฟัน ปรับลวด', status: 'confirmed' },
+    ],
+    tomorrow: 'นัดพรุ่งนี้',
+    tomorrowCount: '14 นัด',
+    confirmedCount: 'ยืนยันแล้ว 11',
+    pendingCount: 'รอโทรยืนยัน 3',
+    toast: {
+      from: 'Dentsis HR',
+      at: '10:50',
+      body: 'อีก 10 นาทีถึงเวลาเข้างาน 11:00 น. กด “ลงเวลา” ที่เมนูด้านล่างได้เลย',
+    },
+  },
+  day: {
+    eyebrow: 'หนึ่งวันในคลินิก',
+    title: 'ระบบเดียวที่อยู่กับคลินิกทั้งวัน',
+    lede: 'Dentsis ไม่ได้มีไว้แค่เก็บข้อมูล ทุกคนในคลินิกใช้มันในจังหวะงานของตัวเอง ตั้งแต่พนักงานคนแรกมาถึงจนเจ้าของปิดไฟ',
+    roles: {
+      staff: 'พนักงาน',
+      front: 'เคาน์เตอร์',
+      assistant: 'ผู้ช่วยทันตแพทย์',
+      doctor: 'ทันตแพทย์',
+      owner: 'เจ้าของคลินิก',
+    },
+    steps: [
+      {
+        time: '08:30',
+        role: 'staff',
+        title: 'ลงเวลาเข้างานผ่าน LINE',
+        body: 'เปิด LINE แล้วกดลงเวลา ไม่ต้องมีเครื่องสแกนนิ้ว คนที่ยังไม่ลงเวลาจะได้ข้อความเตือนก่อนถึงเวลาเข้างาน',
+      },
+      {
+        time: '09:00',
+        role: 'front',
+        title: 'ลงทะเบียนคนไข้ เปิดตารางนัดของหมอแต่ละคน',
+        body: 'ดูนัดรายวันหรือรายสัปดาห์ กรองตามทันตแพทย์ เลื่อนนัดหรือยกเลิกได้จากหน้าเดียว และเห็นว่านัดพรุ่งนี้ยังต้องโทรยืนยันอีกกี่ราย',
+      },
+      {
+        time: '11:15',
+        role: 'assistant',
+        title: 'หยิบของจากตู้ในห้องทำฟัน',
+        body: 'สแกน QR ที่ประตูห้อง เปิดใช้ของทีละชิ้น แจ้งของหมดได้ทันที ระบบรู้ว่าห้องไหนเหลืออะไร',
+      },
+      {
+        time: '14:00',
+        role: 'front',
+        title: 'ลงรายรับ ค่า DF คิดให้เอง',
+        body: 'บันทึกค่ารักษาตามทันตแพทย์และประเภทการรักษา ระบบคำนวณค่า DF ตามกฎที่ตั้งไว้ และเติมเงินให้ถึงยอดประกันรายได้',
+      },
+      {
+        time: '19:30',
+        role: 'owner',
+        title: 'ปิดยอดประจำวัน',
+        body: 'เห็นรายรับ รายจ่าย ค่าแล็บที่ค้างจ่าย และบิลที่ถึงกำหนด ทันตแพทย์เปิดดูค่า DF ของตัวเองได้โดยไม่ต้องถามเคาน์เตอร์',
+      },
+      {
+        time: '21:30',
+        role: 'owner',
+        title: 'สรุปสต็อกส่งเข้า LINE',
+        body: 'ของใกล้หมด ของที่ถึงจุดสั่ง และของที่คาดว่าจะหมดเร็ว ๆ นี้ ส่งมาเป็นข้อความเดียวทุกคืน ตั้งเวลาเองได้',
+      },
+    ],
+  },
+  df: {
+    eyebrow: 'ค่า DF และประกันรายได้',
+    title: 'ค่ามือหมอ คิดตามกฎของคลินิกคุณ',
+    lede: 'ตั้งกฎแยกได้ตามทันตแพทย์และประเภทการรักษา จะคิดเป็นเปอร์เซ็นต์หรือจำนวนเงินคงที่ก็ได้ เลือกได้ว่าคิดจากค่ารักษาอย่างเดียวหรือรวมค่ายา ถ้าวันไหน DF ไม่ถึงยอดประกัน ระบบคำนวณเงินเติมเต็มให้',
+    try: 'ลองปรับดู',
+    caseTitle: 'เคสของหมอปรางวันนี้',
+    colCase: 'การรักษา',
+    colFee: 'ค่ารักษา',
+    colMed: 'ค่ายา',
+    cases: [
+      { name: 'ขูดหินปูน', fee: 1200, med: 0 },
+      { name: 'อุดฟัน #36', fee: 1500, med: 0 },
+      { name: 'ถอนฟันคุด #38', fee: 3500, med: 280 },
+      { name: 'ตรวจฟัน', fee: 300, med: 0 },
+    ],
+    rate: 'อัตรา DF',
+    base: 'คิดจาก',
+    baseFee: 'ค่ารักษา',
+    baseTotal: 'ค่ารักษา + ค่ายา',
+    guarantee: 'ประกันรายได้ต่อวัน',
+    dfTotal: 'DF ตามกฎ',
+    topUp: 'เงินเติมเต็ม',
+    payout: 'หมอได้รับวันนี้',
+    reached: 'ถึงยอดประกันแล้ว',
+    baht: '฿',
+    note: 'ตัวเลขตัวอย่าง ใช้กฎเดียวกับทุกเคสเพื่อให้เห็นภาพ',
+  },
+  staff: {
+    eyebrow: 'HR ผ่าน LINE',
+    title: 'พนักงานใช้ LINE ที่มีอยู่แล้ว',
+    lede: 'ไม่ต้องลงแอปใหม่ ไม่ต้องจำรหัส ผูกบัญชีครั้งเดียวแล้วใช้ได้เลยจากเมนูใน LINE',
+    items: [
+      { title: 'ลงเวลาเข้า-ออกงาน', body: 'พร้อมข้อความเตือนก่อนเวลาเข้างาน สำหรับคนที่ยังไม่ลงเวลา' },
+      { title: 'ขอลาและขอแก้เวลา', body: 'ส่งคำขอจาก LINE เจ้าของคลินิกอนุมัติแล้วยอดวันลาปรับให้เอง' },
+      { title: 'สลิปเงินเดือนในมือถือ', body: 'ฝั่งแอดมินคิด OT และเงินเดือน พิมพ์สลิปได้ พนักงานเปิดดูย้อนหลังได้เอง' },
+      { title: 'กฎของคลินิกอยู่ที่เดียว', body: 'เวลาทำงาน ประเภทการลา และเงื่อนไขต่าง ๆ เปิดอ่านได้ตลอด' },
+    ],
+    phone: {
+      name: 'Dentsis HR',
+      today: 'วันนี้',
+      msgs: [
+        { at: '10:50', text: 'อีก 10 นาทีถึงเวลาเข้างาน 11:00 น. กด “ลงเวลา” ที่เมนูด้านล่างได้เลย' },
+        { at: '10:56', text: 'ลงเวลาเข้างานแล้ว 10:56 น. ขอให้เป็นวันที่ดี' },
+        { at: '15:12', text: 'คำขอลาพักร้อน 2–3 ธ.ค. ได้รับอนุมัติแล้ว เหลือวันลาพักร้อน 4 วัน' },
+        { at: '18:05', text: 'สลิปเงินเดือน พ.ย. 2569 พร้อมแล้ว แตะเพื่อเปิดดู' },
+      ],
+      menu: ['ลงเวลา', 'ขอลา', 'แก้เวลา', 'สลิปเงินเดือน', 'ประวัติ', 'กฎคลินิก'],
+    },
+  },
+  stock: {
+    eyebrow: 'สต็อกรายห้อง',
+    title: 'รู้ว่าของอยู่ห้องไหน และจะหมดเมื่อไร',
+    lede: 'รับของเข้า เบิกออก ติดตามวันหมดอายุ และย้ายของไปไว้ตามห้องทำฟัน ของที่เปิดใช้ทีละชิ้นจะคาดวันหมดให้จากการใช้จริง',
+    points: [
+      'QR ติดประตูห้อง สแกนแล้วเห็นของในห้องนั้นทันที',
+      'แจ้งของหมดได้จากมือถือ ไม่ต้องเดินไปที่เคาน์เตอร์',
+      'แจ้งเตือนของใกล้หมดและของที่ถึงจุดสั่งบนหน้าแดชบอร์ด',
+      'รายงานสต็อกรายเดือน พิมพ์ได้ หรือส่งออกเป็น CSV',
+    ],
+    room: 'ห้องทำฟัน 2',
+    scan: 'สแกนที่ประตูห้อง',
+    items: [
+      { name: 'วัสดุอุดฟันคอมโพสิต A2', tag: 'เปิดใช้อยู่', meta: 'คาดว่าหมด 2 ธ.ค.', tone: 'blue' },
+      { name: 'ยาชาลิโดเคน 2%', tag: 'เหลือ 3 หลอด', meta: 'ถึงจุดสั่งแล้ว', tone: 'amber' },
+      { name: 'ถุงมือไนไตรล์ M', tag: 'เปิดใช้อยู่', meta: 'คาดว่าหมด 9 ธ.ค.', tone: 'blue' },
+      { name: 'เข็มฉีดยา 27G', tag: 'เหลือ 2 กล่อง', meta: 'เพียงพอ', tone: 'mint' },
+    ],
+  },
+  more: {
+    eyebrow: 'และงานหลังบ้านอื่น ๆ',
+    title: 'งานเอกสารที่เคยอยู่ในสมุด ย้ายมาไว้ที่เดียว',
+    items: [
+      { title: 'ค่าแล็บ', body: 'บันทึกงานแล็บ ดูยอดค้างจ่ายแยกตามแล็บ แล้วกดรับชำระทีละหลายรายการ' },
+      { title: 'เจ้าหนี้และรายจ่าย', body: 'บิลค้างจ่าย วันครบกำหนด และรายจ่ายประจำเดือนแยกหมวด' },
+      { title: 'สรุปรายเดือน', body: 'รายรับ รายจ่าย และค่า DF ทั้งเดือนบนหน้าเดียว' },
+      { title: 'รายงานพิมพ์ได้', body: 'รายงานรายจ่ายและสต็อกรายเดือน พิมพ์หรือส่งออกเป็น CSV' },
+      { title: 'สิทธิ์ตามหน้าที่', body: 'เจ้าของ พนักงาน และทันตแพทย์ เห็นเฉพาะเมนูที่ต้องใช้' },
+      { title: 'บอกทีมได้จากในระบบ', body: 'เจออะไรไม่สะดวก ส่งความเห็นจากในระบบ ทีมเราอ่านทุกเรื่องและนำไปปรับจริง' },
+    ],
+  },
   pricing: {
-    title: string
-    subtitle: string
-    monthly: string
-    annually: string
-    perMonth: string
-    contactSales: string
-    getStarted: string
-    plans: Array<{
-      name: string
-      description: string
-      price: string
-      features: string[]
-    }>
-  }
+    eyebrow: 'แพ็กเกจ',
+    title: 'เลือกตามขนาดคลินิก',
+    perMonth: 'บาท / เดือน',
+    popular: 'คลินิกส่วนใหญ่เลือก',
+    cta: 'เริ่มต้นใช้งาน',
+    ctaSales: 'ติดต่อสอบถาม',
+    plans: [
+      {
+        name: 'Starter',
+        desc: 'คลินิกขนาดเล็ก',
+        price: '3,900',
+        features: ['ผู้ใช้งาน 1-3 คน', 'ข้อมูลผู้ป่วยไม่จำกัด', 'ระบบนัดหมายพื้นฐาน', 'ระบบบิลและใบเสร็จ', 'รายงานมาตรฐาน', 'ซัพพอร์ตทาง Email'],
+      },
+      {
+        name: 'Clinic',
+        desc: 'คลินิกขนาดกลาง',
+        price: '7,900',
+        features: ['ผู้ใช้งาน 4-10 คน', 'ฟีเจอร์ครบทุกอย่าง', 'ระบบนัดหมายขั้นสูง + SMS', 'การจัดการสต็อกและคลัง', 'รายงานขั้นสูงและแดชบอร์ด', 'ซัพพอร์ต 24/7', 'อบรมเชิงลึก'],
+      },
+      {
+        name: 'Enterprise',
+        desc: 'เครือคลินิกและโรงพยาบาล',
+        price: '',
+        features: ['ผู้ใช้งานไม่จำกัด', 'หลายสาขา (Multi-branch)', 'ปรับแต่งตามความต้องการ', 'API Integration', 'Dedicated Account Manager', 'On-premise หรือ Cloud', 'SLA รับประกัน'],
+      },
+    ],
+    custom: 'คุยกันตามขนาด',
+  },
   faq: {
-    title: string
-    subtitle: string
-    items: Array<{
-      question: string
-      answer: string
-    }>
-  }
+    eyebrow: 'คำถามที่พบบ่อย',
+    title: 'ก่อนเริ่มใช้ คลินิกมักถามเรื่องนี้',
+    items: [
+      {
+        q: 'ใช้เวลานานแค่ไหนกว่าจะเริ่มใช้งานได้?',
+        a: 'โดยปกติใช้ 3-5 วันทำการสำหรับตั้งค่า ปรับให้เข้ากับคลินิก และอบรมพื้นฐาน หลังจากนั้นเริ่มใช้งานได้ทันที ทีมงานช่วยอยู่ตลอดช่วงแรก',
+      },
+      {
+        q: 'ต้องซื้ออุปกรณ์เพิ่มไหม?',
+        a: 'ไม่ต้อง Dentsis ใช้บนเบราว์เซอร์ทั่วไป (Chrome, Safari, Edge) ทั้งคอมพิวเตอร์และแท็บเล็ต ส่วนพนักงานลงเวลาผ่าน LINE บนมือถือของตัวเอง',
+      },
+      {
+        q: 'ข้อมูลผู้ป่วยปลอดภัยแค่ไหน?',
+        a: 'ข้อมูลเข้ารหัสระหว่างส่ง สำรองข้อมูลอัตโนมัติทุกวัน และแต่ละคนเห็นเฉพาะข้อมูลที่หน้าที่ของตัวเองต้องใช้',
+      },
+      {
+        q: 'ย้ายข้อมูลจากระบบเก่าหรือ Excel ได้ไหม?',
+        a: 'ได้ ทีมงานช่วยย้ายข้อมูลผู้ป่วย รายการสินค้า และข้อมูลสำคัญอื่น ๆ จากระบบเดิม โดยไม่มีค่าใช้จ่ายเพิ่ม',
+      },
+      {
+        q: 'ตั้งกฎค่า DF ไม่เหมือนคลินิกอื่นได้ไหม?',
+        a: 'ได้ ตั้งแยกตามทันตแพทย์และประเภทการรักษา เป็นเปอร์เซ็นต์หรือจำนวนเงินคงที่ และกำหนดยอดประกันรายได้ต่อวันของแต่ละคนได้',
+      },
+      {
+        q: 'เปลี่ยนหรือยกเลิกแพ็กเกจได้ไหม?',
+        a: 'เปลี่ยนแพ็กเกจได้ทุกเมื่อ ถ้าจะยกเลิก ขอให้แจ้งล่วงหน้า 30 วัน แล้วเราจะส่งมอบข้อมูลทั้งหมดของคลินิกให้ครบ',
+      },
+    ],
+  },
   contact: {
-    title: string
-    subtitle: string
+    eyebrow: 'นัดดูเดโม',
+    title: 'ดูระบบกับข้อมูลแบบคลินิกคุณ',
+    lede: 'บอกเราสั้น ๆ ว่าคลินิกมีทันตแพทย์กี่คน และตอนนี้ใช้อะไรอยู่ เราจะติดต่อกลับเพื่อนัดเวลาเดโม 30 นาที',
+    steps: ['คุยเรื่องงานของคลินิก 10 นาที', 'ดูระบบจริงด้วยตัวอย่างที่ใกล้เคียงคลินิกคุณ', 'ได้ใบเสนอราคาและแผนเริ่มใช้งาน'],
     form: {
-      name: string
-      email: string
-      phone: string
-      clinic: string
-      message: string
-      submit: string
-      submitting: string
-      success: string
-    }
-  }
+      name: 'ชื่อ-นามสกุล',
+      phone: 'เบอร์โทรศัพท์',
+      email: 'อีเมล',
+      clinic: 'ชื่อคลินิก',
+      dentists: 'จำนวนทันตแพทย์',
+      message: 'อยากให้ช่วยเรื่องไหนเป็นพิเศษ (ไม่บังคับ)',
+      submit: 'ส่งคำขอนัดเดโม',
+      submitting: 'กำลังส่ง…',
+      success: 'ได้รับคำขอแล้ว',
+      successBody: 'เราจะติดต่อกลับเพื่อนัดเวลาเดโม',
+      again: 'ส่งอีกครั้ง',
+      required: 'กรุณากรอกช่องนี้',
+      badEmail: 'รูปแบบอีเมลไม่ถูกต้อง',
+    },
+  },
   footer: {
-    tagline: string
-    product: string
-    company: string
-    support: string
-    followUs: string
-    rights: string
-    links: {
-      features: string
-      pricing: string
-      demo: string
-      about: string
-      blog: string
-      careers: string
-      docs: string
-      help: string
-      contact: string
-    }
-  }
+    tagline: 'ระบบบริหารคลินิกทันตกรรม',
+    rights: '© 2026 Dentsis',
+    top: 'กลับขึ้นด้านบน',
+  },
 }
 
-export const translations: Record<Language, Translations> = {
-  th: {
-    header: {
-      features: 'ฟีเจอร์',
-      pricing: 'แพ็กเกจ',
-      faq: 'คำถามที่พบบ่อย',
-      contact: 'ติดต่อเรา',
-      requestDemo: 'ขอทดลองใช้',
-    },
-    hero: {
-      title: 'ระบบบริหารจัดการคลินิกทันตกรรมที่ออกแบบมาเพื่อคุณ',
-      subtitle:
-        'เพิ่มประสิทธิภาพการทำงาน ลดภาระงานเอกสาร และมอบประสบการณ์ที่ดีที่สุดให้กับผู้ป่วย ด้วยระบบที่ครบครันและใช้งานง่าย',
-      ctaPrimary: 'ขอทดลองใช้ฟรี',
-      ctaSecondary: 'ติดต่อฝ่ายขาย',
-    },
-    trust: {
-      title: 'ทำไมต้องเลือก Dentsis',
-      subtitle: 'ระบบที่ออกแบบมาเพื่อตอบโจทย์การทำงานของคลินิกทันตกรรมโดยเฉพาะ',
-      items: [
-        {
-          title: 'เริ่มใช้งานได้ทันที',
-          description: 'ติดตั้งและปรับแต่งระบบได้ง่ายภายในไม่กี่วัน ไม่ต้องรอนาน',
-        },
-        {
-          title: 'ตรงตามเวิร์กโฟลว์จริง',
-          description: 'ออกแบบโดยทีมที่เข้าใจการทำงานของคลินิกทันตกรรมอย่างลึกซึ้ง',
-        },
-        {
-          title: 'ข้อมูลชัดเจน ตัดสินใจง่าย',
-          description: 'รายงานและแดชบอร์ดที่ช่วยให้คุณเห็นภาพรวมและวิเคราะห์ได้ทันที',
-        },
-        {
-          title: 'ทีมซัพพอร์ตพร้อมช่วย',
-          description: 'ทีมงานคอยให้คำปรึกษาและแก้ไขปัญหา ตั้งแต่เริ่มต้นจนถึงการใช้งานจริง',
-        },
-      ],
-    },
-    modules: {
-      title: 'ฟีเจอร์หลักที่ครอบคลุมทุกการทำงาน',
-      subtitle: 'ระบบบูรณาการที่ช่วยให้คลินิกของคุณทำงานได้อย่างราบรื่น',
-      items: [
-        {
-          title: 'ระบบ OPD',
-          description:
-            'บันทึกข้อมูลผู้ป่วย ประวัติการรักษา และติดตามแผนการรักษาได้อย่างครบถ้วน',
-        },
-        {
-          title: 'ระบบนัดหมาย',
-          description:
-            'จัดการตารางนัดหมาย ส่งการแจ้งเตือนอัตโนมัติ และลดปัญหาการนัดซ้อน',
-        },
-        {
-          title: 'ระบบบิลและการเงิน',
-          description: 'ออกบิล จัดการค่ารักษา สต็อกสินค้า และสรุปรายรับรายจ่ายอย่างแม่นยำ',
-        },
-      ],
-    },
-    workflow: {
-      title: 'กระบวนการทำงานร่วมกับเรา',
-      subtitle: '4 ขั้นตอนสู่ความสำเร็จ',
-      steps: [
-        {
-          title: 'ค้นพบความต้องการ',
-          description: 'ปรึกษาและวิเคราะห์ความต้องการของคลินิกคุณ',
-        },
-        {
-          title: 'ออกแบบระบบ',
-          description: 'ปรับแต่งฟีเจอร์ให้ตรงกับเวิร์กโฟลว์ของคุณ',
-        },
-        {
-          title: 'ติดตั้งและฝึกอบรม',
-          description: 'ติดตั้งระบบและอบรมทีมให้ใช้งานได้อย่างมั่นใจ',
-        },
-        {
-          title: 'ดูแลต่อเนื่อง',
-          description: 'ซัพพอร์ตและพัฒนาระบบให้ดียิ่งขึ้นเรื่อยๆ',
-        },
-      ],
-    },
-    testimonials: {
-      title: 'ความไว้วางใจจากคลินิกชั้นนำ',
-      subtitle: 'เสียงจากลูกค้าที่ใช้บริการจริง',
-      items: [
-        {
-          name: 'ทพญ. สุดารัตน์ วงศ์ไพศาล',
-          role: 'เจ้าของคลินิก',
-          clinic: 'Smile Bright Dental',
-          content:
-            'ระบบ Dentsis ช่วยให้คลินิกของเราทำงานได้คล่องตัวขึ้นมาก ไม่ต้องกังวลเรื่องเอกสารหาย หรือนัดซ้อนอีกต่อไป ทีมงานก็ชอบมาก',
-        },
-        {
-          name: 'ดร. พิชัย สมบูรณ์',
-          role: 'ผู้อำนวยการ',
-          clinic: 'Bangkok Dental Center',
-          content:
-            'การรายงานทางการเงินที่ชัดเจนทำให้เราตัดสินใจเรื่องธุรกิจได้รวดเร็วขึ้น ทีมซัพพอร์ตก็ตอบเร็วและช่วยเหลือดีมาก',
-        },
-        {
-          name: 'ทพ. อนุชา เจริญสุข',
-          role: 'ทันตแพทย์เจ้าของคลินิก',
-          clinic: 'Happy Teeth Clinic',
-          content:
-            'เราใช้ Dentsis มา 2 ปีแล้ว ระบบมีอัปเดตบ่อย และทีมงานพัฒนาฟีเจอร์ใหม่ๆ ตามความต้องการของเราด้วย ประทับใจมาก',
-        },
-      ],
-    },
-    pricing: {
-      title: 'แพ็กเกจที่เหมาะกับทุกขนาดคลินิก',
-      subtitle: 'เลือกแพ็กเกจที่ตรงกับความต้องการของคุณ',
-      monthly: 'รายเดือน',
-      annually: 'รายปี',
-      perMonth: '/ เดือน',
-      contactSales: 'ติดต่อสอบถาม',
-      getStarted: 'เริ่มต้นใช้งาน',
-      plans: [
-        {
-          name: 'Starter',
-          description: 'เหมาะสำหรับคลินิกขนาดเล็ก',
-          price: '3,900',
-          features: [
-            'ผู้ใช้งาน 1-3 คน',
-            'ข้อมูลผู้ป่วยไม่จำกัด',
-            'ระบบนัดหมายพื้นฐาน',
-            'ระบบบิลและใบเสร็จ',
-            'รายงานมาตรฐาน',
-            'ซัพพอร์ตทาง Email',
-          ],
-        },
-        {
-          name: 'Clinic',
-          description: 'เหมาะสำหรับคลินิกขนาดกลาง',
-          price: '7,900',
-          features: [
-            'ผู้ใช้งาน 4-10 คน',
-            'ฟีเจอร์ครบทุกอย่าง',
-            'ระบบนัดหมายขั้นสูง + SMS',
-            'การจัดการสต็อกและคลัง',
-            'รายงานขั้นสูงและแดชบอร์ด',
-            'ซัพพอร์ต 24/7',
-            'อบรมเชิงลึก',
-          ],
-        },
-        {
-          name: 'Enterprise',
-          description: 'สำหรับเครือคลินิกและโรงพยาบาล',
-          price: 'ติดต่อเรา',
-          features: [
-            'ผู้ใช้งานไม่จำกัด',
-            'หลายสาขา (Multi-branch)',
-            'ปรับแต่งตามความต้องการ',
-            'API Integration',
-            'Dedicated Account Manager',
-            'On-premise หรือ Cloud',
-            'SLA รับประกัน',
-          ],
-        },
-      ],
-    },
-    faq: {
-      title: 'คำถามที่พบบ่อย',
-      subtitle: 'คำตอบสำหรับคำถามทั่วไปเกี่ยวกับ Dentsis',
-      items: [
-        {
-          question: 'ใช้เวลานานแค่ไหนในการติดตั้งและเริ่มใช้งาน?',
-          answer:
-            'โดยปกติใช้เวลา 3-5 วันทำการสำหรับการติดตั้ง ปรับแต่ง และอบรมพื้นฐาน คุณสามารถเริ่มใช้งานได้ทันทีหลังจากนั้น ทีมงานจะคอยช่วยเหลือตลอดกระบวนการ',
-        },
-        {
-          question: 'ข้อมูลผู้ป่วยปลอดภัยแค่ไหน?',
-          answer:
-            'เราใช้มาตรฐานความปลอดภัยระดับสากล เข้ารหัสข้อมูลทั้งในการส่งและจัดเก็บ มีการสำรองข้อมูลอัตโนมัติทุกวัน และปฏิบัติตามกฎหมาย PDPA อย่างเคร่งครัด',
-        },
-        {
-          question: 'ต้องใช้อุปกรณ์พิเศษหรือไม่?',
-          answer:
-            'ไม่จำเป็น Dentsis ทำงานบนเว็บเบราว์เซอร์ทั่วไป (Chrome, Safari, Edge) ใช้งานได้ทั้งคอมพิวเตอร์และแท็บเล็ต ไม่ต้องติดตั้งโปรแกรม',
-        },
-        {
-          question: 'สามารถย้ายข้อมูลจากระบบเก่ามาได้ไหม?',
-          answer:
-            'ได้ครับ ทีมงานจะช่วยคุณย้ายข้อมูลผู้ป่วย ประวัติการรักษา และข้อมูลสำคัญอื่นๆ จากระบบเก่า โดยไม่มีค่าใช้จ่ายเพิ่มเติม',
-        },
-        {
-          question: 'มีการอบรมการใช้งานหรือไม่?',
-          answer:
-            'มีครับ เรามีโปรแกรมอบรมแบบ Step-by-step ทั้งแบบ On-site และ Online รวมถึงวิดีโอสอนและเอกสารประกอบที่ครบถ้วน',
-        },
-        {
-          question: 'สามารถยกเลิกหรือเปลี่ยนแพ็กเกจได้ไหม?',
-          answer:
-            'สามารถเปลี่ยนแพ็กเกจได้ทุกเมื่อตามความต้องการ สำหรับการยกเลิก เราขอให้แจ้งล่วงหน้า 30 วัน และจะส่งมอบข้อมูลทั้งหมดของคุณอย่างครบถ้วน',
-        },
-      ],
-    },
-    contact: {
-      title: 'พร้อมเริ่มต้นแล้วหรือยัง?',
-      subtitle: 'ติดต่อเราเพื่อปรึกษาและขอทดลองใช้ฟรี',
-      form: {
-        name: 'ชื่อ-นามสกุล',
-        email: 'อีเมล',
-        phone: 'เบอร์โทรศัพท์',
-        clinic: 'ชื่อคลินิก',
-        message: 'ข้อความ (ถ้ามี)',
-        submit: 'ส่งข้อความ',
-        submitting: 'กำลังส่ง...',
-        success: 'ส่งข้อความสำเร็จ! เราจะติดต่อกลับโดยเร็วที่สุด',
-      },
-    },
-    footer: {
-      tagline: 'ระบบบริหารจัดการคลินิกทันตกรรม ที่ออกแบบมาเพื่อคุณ',
-      product: 'ผลิตภัณฑ์',
-      company: 'บริษัท',
-      support: 'ช่วยเหลือ',
-      followUs: 'ติดตามเรา',
-      rights: '© 2026 Dentsis. สงวนลิขสิทธิ์.',
-      links: {
-        features: 'ฟีเจอร์',
-        pricing: 'แพ็กเกจ',
-        demo: 'ทดลองใช้',
-        about: 'เกี่ยวกับเรา',
-        blog: 'บล็อก',
-        careers: 'ร่วมงานกับเรา',
-        docs: 'เอกสาร',
-        help: 'ศูนย์ช่วยเหลือ',
-        contact: 'ติดต่อเรา',
-      },
+export type Translations = typeof th
+
+const en: Translations = {
+  nav: {
+    day: 'Features',
+    df: 'Doctor fees',
+    staff: 'Staff',
+    pricing: 'Pricing',
+    faq: 'FAQ',
+    cta: 'Book a demo',
+    menu: 'Menu',
+    close: 'Close menu',
+  },
+  hero: {
+    eyebrow: 'Dental clinic management',
+    titleA: 'From the first patient',
+    titleB: 'to closing the day',
+    lede: 'Appointment books per dentist, doctor fees calculated by your clinic’s own rules, stock that knows which room it sits in, and staff clocking in through LINE. All in one system.',
+    ctaPrimary: 'Book a 30-minute demo',
+    ctaSecondary: 'See a full clinic day',
+    facts: ['Runs in the browser, nothing to install', 'Staff use the LINE they already have', 'Built for multi-dentist clinics'],
+  },
+  board: {
+    date: 'Wed 25 Nov',
+    sample: 'Example',
+    time: 'Time',
+    doctors: ['Dr. Prang', 'Dr. Ton', 'Dr. Mew'],
+    status: { arrived: 'Arrived', confirmed: 'Confirmed', pending: 'Unconfirmed' },
+    appts: [
+      { doc: 0, start: '09:00', end: '10:00', who: 'Siriporn', what: 'Scaling', status: 'arrived' },
+      { doc: 0, start: '10:30', end: '11:30', who: 'Thana', what: 'Filling #36', status: 'confirmed' },
+      { doc: 0, start: '12:00', end: '12:30', who: 'Mali', what: 'Check-up', status: 'pending' },
+      { doc: 1, start: '09:30', end: '11:00', who: 'Wilai', what: 'Root canal #46', status: 'arrived' },
+      { doc: 1, start: '11:30', end: '12:30', who: 'Ek', what: 'Wisdom tooth #38', status: 'confirmed' },
+      { doc: 2, start: '09:00', end: '09:30', who: 'Phum', what: 'Fluoride', status: 'arrived' },
+      { doc: 2, start: '10:00', end: '12:00', who: 'Napa', what: 'Braces adjustment', status: 'confirmed' },
+    ],
+    tomorrow: 'Tomorrow',
+    tomorrowCount: '14 appointments',
+    confirmedCount: '11 confirmed',
+    pendingCount: '3 to call',
+    toast: {
+      from: 'Dentsis HR',
+      at: '10:50',
+      body: 'Your shift starts at 11:00. Tap “Clock in” in the menu below.',
     },
   },
-  en: {
-    header: {
-      features: 'Features',
-      pricing: 'Pricing',
-      faq: 'FAQ',
-      contact: 'Contact',
-      requestDemo: 'Request Demo',
+  day: {
+    eyebrow: 'A day at the clinic',
+    title: 'One system that works the whole day with you',
+    lede: 'Dentsis is more than a place to store records. Everyone in the clinic uses it at their own point in the day, from the first person through the door to the owner turning off the lights.',
+    roles: {
+      staff: 'Staff',
+      front: 'Front desk',
+      assistant: 'Dental assistant',
+      doctor: 'Dentist',
+      owner: 'Owner',
     },
-    hero: {
-      title: 'Dental Clinic Management System Designed for You',
-      subtitle:
-        'Boost efficiency, reduce paperwork, and deliver the best patient experience with our comprehensive and user-friendly system',
-      ctaPrimary: 'Try for Free',
-      ctaSecondary: 'Contact Sales',
-    },
-    trust: {
-      title: 'Why Choose Dentsis',
-      subtitle: 'A system specifically designed to meet the needs of dental clinics',
-      items: [
-        {
-          title: 'Quick to Start',
-          description: 'Easy setup and customization within a few days, no long wait',
-        },
-        {
-          title: 'Fits Real Workflows',
-          description: 'Designed by a team with deep understanding of dental clinic operations',
-        },
-        {
-          title: 'Clear Data, Easy Decisions',
-          description: 'Reports and dashboards for instant overview and analysis',
-        },
-        {
-          title: 'Support Team Ready',
-          description: 'Our team provides consultation and support from start to deployment',
-        },
-      ],
-    },
-    modules: {
-      title: 'Core Features That Cover All Operations',
-      subtitle: 'Integrated system for smooth clinic management',
-      items: [
-        {
-          title: 'OPD System',
-          description:
-            'Record patient data, treatment history, and track treatment plans comprehensively',
-        },
-        {
-          title: 'Appointment System',
-          description:
-            'Manage appointment schedules, send automatic reminders, and reduce double bookings',
-        },
-        {
-          title: 'Billing & Finance',
-          description:
-            'Issue invoices, manage treatment fees, inventory, and summarize revenue accurately',
-        },
-      ],
-    },
-    workflow: {
-      title: 'Working Process with Us',
-      subtitle: '4 Steps to Success',
-      steps: [
-        {
-          title: 'Discover Needs',
-          description: 'Consult and analyze your clinic requirements',
-        },
-        {
-          title: 'Design System',
-          description: 'Customize features to match your workflow',
-        },
-        {
-          title: 'Implement & Train',
-          description: 'Install system and train your team confidently',
-        },
-        {
-          title: 'Ongoing Support',
-          description: 'Continuous support and system improvement',
-        },
-      ],
-    },
-    testimonials: {
-      title: 'Trusted by Leading Clinics',
-      subtitle: 'Real voices from our customers',
-      items: [
-        {
-          name: 'Dr. Sudarat Wongpaisan',
-          role: 'Clinic Owner',
-          clinic: 'Smile Bright Dental',
-          content:
-            'Dentsis helps our clinic operate much more smoothly. No more worries about lost documents or double bookings. Our team loves it.',
-        },
-        {
-          name: 'Dr. Pichai Somboon',
-          role: 'Director',
-          clinic: 'Bangkok Dental Center',
-          content:
-            'Clear financial reporting enables us to make business decisions faster. Support team is very responsive and helpful.',
-        },
-        {
-          name: 'Dr. Anucha Charoensuk',
-          role: 'Dentist & Clinic Owner',
-          clinic: 'Happy Teeth Clinic',
-          content:
-            "We've been using Dentsis for 2 years. The system updates frequently, and the team develops new features based on our needs. Very impressed.",
-        },
-      ],
-    },
-    pricing: {
-      title: 'Packages for Every Clinic Size',
-      subtitle: 'Choose the package that fits your needs',
-      monthly: 'Monthly',
-      annually: 'Annually',
-      perMonth: '/ month',
-      contactSales: 'Contact Sales',
-      getStarted: 'Get Started',
-      plans: [
-        {
-          name: 'Starter',
-          description: 'Perfect for small clinics',
-          price: '$99',
-          features: [
-            '1-3 Users',
-            'Unlimited Patients',
-            'Basic Appointment System',
-            'Billing & Receipts',
-            'Standard Reports',
-            'Email Support',
-          ],
-        },
-        {
-          name: 'Clinic',
-          description: 'Perfect for medium-sized clinics',
-          price: '$199',
-          features: [
-            '4-10 Users',
-            'All Features Included',
-            'Advanced Appointments + SMS',
-            'Inventory Management',
-            'Advanced Reports & Dashboard',
-            '24/7 Support',
-            'In-depth Training',
-          ],
-        },
-        {
-          name: 'Enterprise',
-          description: 'For clinic chains and hospitals',
-          price: 'Contact Us',
-          features: [
-            'Unlimited Users',
-            'Multi-branch Support',
-            'Custom Configuration',
-            'API Integration',
-            'Dedicated Account Manager',
-            'On-premise or Cloud',
-            'SLA Guarantee',
-          ],
-        },
-      ],
-    },
-    faq: {
-      title: 'Frequently Asked Questions',
-      subtitle: 'Answers to common questions about Dentsis',
-      items: [
-        {
-          question: 'How long does it take to install and start using?',
-          answer:
-            'Typically 3-5 business days for installation, customization, and basic training. You can start using immediately after. Our team will assist throughout the process.',
-        },
-        {
-          question: 'How secure is patient data?',
-          answer:
-            'We use international security standards, encrypt data in transit and at rest, automated daily backups, and strictly comply with PDPA regulations.',
-        },
-        {
-          question: 'Do I need special equipment?',
-          answer:
-            'No. Dentsis runs on standard web browsers (Chrome, Safari, Edge) on both computers and tablets. No software installation required.',
-        },
-        {
-          question: 'Can I migrate data from my old system?',
-          answer:
-            'Yes. Our team will help you migrate patient data, treatment history, and other important information from your old system at no extra charge.',
-        },
-        {
-          question: 'Is training provided?',
-          answer:
-            'Yes. We offer step-by-step training programs both on-site and online, including tutorial videos and comprehensive documentation.',
-        },
-        {
-          question: 'Can I cancel or change my package?',
-          answer:
-            'You can change packages anytime. For cancellation, we require 30 days notice and will provide all your data completely.',
-        },
-      ],
-    },
-    contact: {
-      title: 'Ready to Get Started?',
-      subtitle: 'Contact us for consultation and free trial',
-      form: {
-        name: 'Full Name',
-        email: 'Email',
-        phone: 'Phone Number',
-        clinic: 'Clinic Name',
-        message: 'Message (optional)',
-        submit: 'Send Message',
-        submitting: 'Sending...',
-        success: 'Message sent successfully! We will contact you soon.',
+    steps: [
+      {
+        time: '08:30',
+        role: 'staff',
+        title: 'Clock in through LINE',
+        body: 'Open LINE and tap clock in. No fingerprint scanner. Anyone who hasn’t clocked in gets a reminder before their shift starts.',
       },
-    },
-    footer: {
-      tagline: 'Dental clinic management system designed for you',
-      product: 'Product',
-      company: 'Company',
-      support: 'Support',
-      followUs: 'Follow Us',
-      rights: '© 2026 Dentsis. All rights reserved.',
-      links: {
-        features: 'Features',
-        pricing: 'Pricing',
-        demo: 'Demo',
-        about: 'About Us',
-        blog: 'Blog',
-        careers: 'Careers',
-        docs: 'Documentation',
-        help: 'Help Center',
-        contact: 'Contact Us',
+      {
+        time: '09:00',
+        role: 'front',
+        title: 'Register patients and open each dentist’s book',
+        body: 'Day or week view, filtered by dentist. Reschedule or cancel from the same screen, and see how many of tomorrow’s patients still need a confirmation call.',
       },
+      {
+        time: '11:15',
+        role: 'assistant',
+        title: 'Take supplies from the treatment room',
+        body: 'Scan the QR code on the room door, open items one at a time and report when one runs out. The system knows what each room has left.',
+      },
+      {
+        time: '14:00',
+        role: 'front',
+        title: 'Record income, doctor fees follow',
+        body: 'Enter treatment fees by dentist and treatment type. Doctor fees are calculated from your rules and topped up to each dentist’s guaranteed daily income.',
+      },
+      {
+        time: '19:30',
+        role: 'owner',
+        title: 'Close the day',
+        body: 'See income, expenses, unpaid lab work and bills coming due. Dentists check their own fees without asking the front desk.',
+      },
+      {
+        time: '21:30',
+        role: 'owner',
+        title: 'Stock digest arrives in LINE',
+        body: 'Low items, items at reorder point and items likely to run out soon, in one message every night at a time you choose.',
+      },
+    ],
+  },
+  df: {
+    eyebrow: 'Doctor fees and income guarantee',
+    title: 'Doctor fees, calculated your clinic’s way',
+    lede: 'Set rules per dentist and per treatment type, as a percentage or a fixed amount, based on the treatment fee alone or including medication. When a dentist’s fees fall short of their daily guarantee, Dentsis works out the top-up.',
+    try: 'Try it',
+    caseTitle: 'Dr. Prang’s cases today',
+    colCase: 'Treatment',
+    colFee: 'Fee',
+    colMed: 'Meds',
+    cases: [
+      { name: 'Scaling', fee: 1200, med: 0 },
+      { name: 'Filling #36', fee: 1500, med: 0 },
+      { name: 'Wisdom tooth #38', fee: 3500, med: 280 },
+      { name: 'Check-up', fee: 300, med: 0 },
+    ],
+    rate: 'Fee rate',
+    base: 'Based on',
+    baseFee: 'Treatment fee',
+    baseTotal: 'Fee + meds',
+    guarantee: 'Daily guarantee',
+    dfTotal: 'Fee by rule',
+    topUp: 'Top-up',
+    payout: 'Paid to dentist today',
+    reached: 'Guarantee reached',
+    baht: '฿',
+    note: 'Example figures, one rule applied to every case for clarity.',
+  },
+  staff: {
+    eyebrow: 'HR in LINE',
+    title: 'Staff use the LINE they already have',
+    lede: 'No new app and no passwords to remember. Link the account once and everything is in the LINE menu.',
+    items: [
+      { title: 'Clock in and out', body: 'With a reminder before the shift for anyone who hasn’t clocked in yet.' },
+      { title: 'Leave and time corrections', body: 'Requests go out from LINE. Once the owner approves, leave balances update on their own.' },
+      { title: 'Payslips on the phone', body: 'Admins calculate overtime and payroll and print payslips. Staff look up past slips themselves.' },
+      { title: 'Clinic rules in one place', body: 'Working hours, leave types and policies are always one tap away.' },
+    ],
+    phone: {
+      name: 'Dentsis HR',
+      today: 'Today',
+      msgs: [
+        { at: '10:50', text: 'Your shift starts at 11:00. Tap “Clock in” in the menu below.' },
+        { at: '10:56', text: 'Clocked in at 10:56. Have a good day.' },
+        { at: '15:12', text: 'Your annual leave for 2–3 Dec is approved. 4 days of annual leave left.' },
+        { at: '18:05', text: 'Your November 2026 payslip is ready. Tap to open.' },
+      ],
+      menu: ['Clock in', 'Leave', 'Fix time', 'Payslip', 'History', 'Rules'],
     },
+  },
+  stock: {
+    eyebrow: 'Stock by room',
+    title: 'Know which room it’s in and when it runs out',
+    lede: 'Receive and issue stock, track expiry dates and move items into treatment rooms. For items opened one at a time, Dentsis estimates the run-out date from actual use.',
+    points: [
+      'A QR code on each room door shows that room’s stock',
+      'Report an item as used up from a phone, no trip to the desk',
+      'Low-stock and reorder alerts on the dashboard',
+      'Monthly stock report to print or export as CSV',
+    ],
+    room: 'Treatment room 2',
+    scan: 'Scan at the door',
+    items: [
+      { name: 'Composite A2', tag: 'In use', meta: 'Runs out ~2 Dec', tone: 'blue' },
+      { name: 'Lidocaine 2%', tag: '3 cartridges left', meta: 'At reorder point', tone: 'amber' },
+      { name: 'Nitrile gloves M', tag: 'In use', meta: 'Runs out ~9 Dec', tone: 'blue' },
+      { name: 'Needles 27G', tag: '2 boxes left', meta: 'Enough', tone: 'mint' },
+    ],
+  },
+  more: {
+    eyebrow: 'And the rest of the back office',
+    title: 'The paperwork that lived in notebooks, in one place',
+    items: [
+      { title: 'Lab work', body: 'Record lab cases, see what you owe each lab and settle many items at once.' },
+      { title: 'Payables and expenses', body: 'Unpaid bills, due dates and monthly expenses by category.' },
+      { title: 'Monthly summary', body: 'A month of income, expenses and doctor fees on one page.' },
+      { title: 'Printable reports', body: 'Monthly expense and stock reports to print or export as CSV.' },
+      { title: 'Access by role', body: 'Owners, staff and dentists see only the menus they need.' },
+      { title: 'Talk to us from inside', body: 'Something awkward? Send feedback from the app. We read every one and act on it.' },
+    ],
+  },
+  pricing: {
+    eyebrow: 'Pricing',
+    title: 'Pick by clinic size',
+    perMonth: 'THB / month',
+    popular: 'Most clinics pick this',
+    cta: 'Get started',
+    ctaSales: 'Contact sales',
+    plans: [
+      {
+        name: 'Starter',
+        desc: 'Small clinics',
+        price: '3,900',
+        features: ['1-3 users', 'Unlimited patient records', 'Basic appointments', 'Billing and receipts', 'Standard reports', 'Email support'],
+      },
+      {
+        name: 'Clinic',
+        desc: 'Medium clinics',
+        price: '7,900',
+        features: ['4-10 users', 'All features', 'Advanced appointments + SMS', 'Stock and inventory', 'Advanced reports and dashboard', '24/7 support', 'In-depth training'],
+      },
+      {
+        name: 'Enterprise',
+        desc: 'Clinic chains and hospitals',
+        price: '',
+        features: ['Unlimited users', 'Multi-branch', 'Custom work', 'API integration', 'Dedicated account manager', 'On-premise or cloud', 'SLA'],
+      },
+    ],
+    custom: 'Priced to fit',
+  },
+  faq: {
+    eyebrow: 'FAQ',
+    title: 'What clinics ask before they start',
+    items: [
+      {
+        q: 'How long until we can start?',
+        a: 'Usually 3-5 business days for setup, fitting it to your clinic and basic training. You can start right after, and our team stays close through the first weeks.',
+      },
+      {
+        q: 'Do we need new hardware?',
+        a: 'No. Dentsis runs in any modern browser (Chrome, Safari, Edge) on computers and tablets. Staff clock in through LINE on their own phones.',
+      },
+      {
+        q: 'How safe is patient data?',
+        a: 'Data is encrypted in transit and backed up automatically every day, and each person only sees what their role needs.',
+      },
+      {
+        q: 'Can we move data from our old system or Excel?',
+        a: 'Yes. We move patients, product lists and other key data from your old system at no extra cost.',
+      },
+      {
+        q: 'Can our doctor-fee rules differ from other clinics?',
+        a: 'Yes. Set them per dentist and per treatment type, as a percentage or a fixed amount, and give each dentist their own daily income guarantee.',
+      },
+      {
+        q: 'Can we change or cancel our plan?',
+        a: 'Change plans any time. To cancel, give 30 days’ notice and we hand over all of your clinic’s data.',
+      },
+    ],
+  },
+  contact: {
+    eyebrow: 'Book a demo',
+    title: 'See it with a clinic like yours',
+    lede: 'Tell us how many dentists you have and what you use today. We’ll get back to you to book a 30-minute demo.',
+    steps: ['10 minutes on how your clinic works', 'A live walkthrough with examples close to your clinic', 'A quote and a plan to get started'],
+    form: {
+      name: 'Full name',
+      phone: 'Phone',
+      email: 'Email',
+      clinic: 'Clinic name',
+      dentists: 'Number of dentists',
+      message: 'Anything we should focus on? (optional)',
+      submit: 'Request a demo',
+      submitting: 'Sending…',
+      success: 'Request received',
+      successBody: 'We’ll get back to you to book a demo time.',
+      again: 'Send another',
+      required: 'Please fill this in',
+      badEmail: 'That email doesn’t look right',
+    },
+  },
+  footer: {
+    tagline: 'Dental clinic management',
+    rights: '© 2026 Dentsis',
+    top: 'Back to top',
   },
 }
+
+export const translations: Record<Language, Translations> = { th, en }

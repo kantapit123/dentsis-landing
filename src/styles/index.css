@@ -3,37 +3,102 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-dentsis-background text-dentsis-text font-sans antialiased;
-  }
-  
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.blue.DEFAULT');
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
 @layer components {
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  .wrap {
+    @apply mx-auto w-full max-w-page;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
   }
-  
+  .eyebrow {
+    @apply font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-ink-2;
+  }
+  .h2 {
+    @apply font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-semibold leading-[1.15] tracking-[-0.01em] text-ink;
+  }
+  .lede {
+    @apply max-w-[38rem] text-[17px] leading-[1.75] text-ink-2;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold transition-colors duration-150;
+  }
   .btn-primary {
-    @apply bg-dentsis-primary text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:bg-opacity-90 hover:shadow-lg;
+    @apply btn bg-blue text-white hover:bg-blue-deep;
   }
-  
-  .btn-secondary {
-    @apply border-2 border-dentsis-primary text-dentsis-primary px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:bg-dentsis-primary hover:text-white;
+  .btn-ghost {
+    @apply btn border border-rule bg-card text-ink hover:border-ink;
   }
-  
-  .card {
-    @apply bg-dentsis-surface rounded-2xl shadow-sm border border-dentsis-border p-6 transition-all duration-200 hover:shadow-md;
+  .num {
+    font-variant-numeric: tabular-nums;
   }
-  
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold text-dentsis-text mb-4;
+  /* Ruled paper: a faint 30-minute grid, like an appointment book */
+  .ruled {
+    background-image: linear-gradient(to bottom, theme('colors.rule-soft') 1px, transparent 1px);
+    background-size: 100% 44px;
   }
-  
-  .section-subtitle {
-    @apply text-lg text-dentsis-text-muted max-w-2xl mx-auto;
+}
+
+@keyframes settle {
+  from {
+    transform: translateY(8px);
+    opacity: 0.35;
   }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(47, 111, 237, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(47, 111, 237, 0);
+  }
+}
+.settle {
+  animation: settle 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.now-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .settle,
+  .now-dot {
+    animation: none;
+  }
+}
+
+/* Thai has no case and breaks when letter-spaced: drop tracking and the mono face for Thai labels */
+html[lang='th'] .eyebrow,
+html[lang='th'] .th-label {
+  font-family: theme('fontFamily.sans');
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-size: 13.5px;
+  font-weight: 600;
 }

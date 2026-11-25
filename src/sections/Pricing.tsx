@@ -1,78 +1,50 @@
-import { Translations } from '../content/translations'
+import type { Translations } from '../content/translations'
+import { Check, SectionHead } from '../components/ui'
 
-interface PricingProps {
-  t: Translations['pricing']
-}
-
-export default function Pricing({ t }: PricingProps) {
+export default function Pricing({ t }: { t: Translations['pricing'] }) {
   return (
-    <section id="pricing" className="py-20 bg-dentsis-surface">
-      <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="section-title">{t.title}</h2>
-          <p className="section-subtitle">{t.subtitle}</p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {t.plans.map((plan, index) => (
-            <div
-              key={index}
-              className={`card ${
-                index === 1
-                  ? 'border-2 border-dentsis-primary shadow-xl scale-105 relative'
-                  : ''
-              }`}
-            >
-              {index === 1 && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-dentsis-primary text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Popular
-                  </span>
-                </div>
-              )}
-              
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-dentsis-text mb-2">{plan.name}</h3>
-                <p className="text-dentsis-text-muted text-sm mb-4">{plan.description}</p>
-                <div className="flex items-end justify-center">
-                  <span className="text-4xl font-bold text-dentsis-primary">{plan.price}</span>
-                  {plan.price !== t.contactSales && (
-                    <span className="text-dentsis-text-muted ml-1">{t.perMonth}</span>
-                  )}
-                </div>
-              </div>
-
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start">
-                    <svg
-                      className="w-5 h-5 text-dentsis-accent mr-3 mt-0.5 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="text-dentsis-text-muted text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href="#contact"
-                className={`block w-full text-center ${
-                  index === 1 ? 'btn-primary' : 'btn-secondary'
-                }`}
+    <section id="pricing" className="border-t border-rule">
+      <div className="wrap flex flex-col gap-12 py-20 lg:py-28">
+        <SectionHead eyebrow={t.eyebrow} title={t.title} />
+        <div className="grid gap-5 lg:grid-cols-3 lg:items-start">
+          {t.plans.map((p, i) => {
+            const hot = i === 1
+            return (
+              <article
+                key={p.name}
+                className={`flex flex-col gap-6 rounded-[20px] p-7 ${hot ? 'bg-ink text-white shadow-[0_30px_60px_-30px_rgba(12,35,48,0.6)]' : 'border border-rule bg-card'}`}
               >
-                {plan.price === t.contactSales ? t.contactSales : t.getStarted}
-              </a>
-            </div>
-          ))}
+                <header className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="font-display text-[22px] font-semibold">{p.name}</h3>
+                    {hot && <span className="rounded-full bg-mint px-2.5 py-0.5 text-[12px] font-semibold text-ink">{t.popular}</span>}
+                  </div>
+                  <p className={`text-[14.5px] ${hot ? 'text-[#A9C0CC]' : 'text-ink-2'}`}>{p.desc}</p>
+                </header>
+                <p className="flex items-baseline gap-2">
+                  {p.price ? (
+                    <>
+                      <span className="num font-display text-[44px] font-bold leading-none tracking-tight">{p.price}</span>
+                      <span className={`text-[14px] ${hot ? 'text-[#A9C0CC]' : 'text-ink-2'}`}>{t.perMonth}</span>
+                    </>
+                  ) : (
+                    <span className="font-display text-[30px] font-bold leading-[44px]">{t.custom}</span>
+                  )}
+                </p>
+                <a href="#contact" className={hot ? 'btn bg-blue text-white hover:bg-white hover:text-ink' : 'btn-ghost'}>
+                  {p.price ? t.cta : t.ctaSales}
+                </a>
+                <ul className={`flex flex-col gap-2.5 border-t pt-6 text-[14.5px] ${hot ? 'border-night-rule' : 'border-rule'}`}>
+                  {p.features.map((f) => (
+                    <li key={f} className="flex gap-2.5">
+                      <Check className={`mt-1 h-4 w-4 shrink-0 ${hot ? 'text-mint' : 'text-mint-ink'}`} />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
